@@ -541,6 +541,25 @@ For C programs:
    use your own debugger and arguments. Example: `GIT_DEBUGGER="ddd --gdb"
    ./bin-wrappers/git log` (See `wrap-for-bin.sh`.)
 
+ - Functions that operate on a specific structure and which are used by
+   other subsystems shall be named after the structure. The function
+   name should start with the name of the structure followed by a verb.
+   E.g.
+
+	struct strbuf;
+
+	void strbuf_add(struct strbuf *buf, ...);
+
+	void strbuf_reset(struct strbuf *buf);
+
+    is preferred over:
+
+	struct strbuf;
+
+	void add_string(struct strbuf *buf, ...);
+
+	void reset_strbuf(struct strbuf *buf);
+
 For Perl programs:
 
  - Most of the C guidelines above apply.
