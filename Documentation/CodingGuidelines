@@ -560,6 +560,18 @@ For C programs:
 
 	void reset_strbuf(struct strbuf *buf);
 
+ - There are several common idiomatic names for functions performing
+   specific tasks on structures:
+
+    - `<struct>_init()` initializes a structure without allocating the
+      structure itself.
+
+    - `<struct>_release()` releases a structure's contents without
+      freeing the structure.
+
+    - `<struct>_free()` releases a structure's contents and frees the
+      structure.
+
 For Perl programs:
 
  - Most of the C guidelines above apply.
