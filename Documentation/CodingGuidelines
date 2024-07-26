@@ -241,6 +241,16 @@ For C programs:
  - We use tabs to indent, and interpret tabs as taking up to
    8 spaces.
 
+ - Nested C preprocessor directives are indented after the hash by two
+   spaces per nesting level.
+
+	#if FOO
+	#  include <foo.h>
+	#  if BAR
+	#    include <bar.h>
+	#  endif
+	#endif
+
  - We try to keep to at most 80 characters per line.
 
  - As a Git developer we assume you have a reasonably modern compiler
@@ -557,6 +567,37 @@ For C programs:
    run `GIT_DEBUGGER="<debugger> <debugger-args>" ./bin-wrappers/git foo` to
    use your own debugger and arguments. Example: `GIT_DEBUGGER="ddd --gdb"
    ./bin-wrappers/git log` (See `wrap-for-bin.sh`.)
+
+ - Functions that operate on a specific structure and which are used by
+   other subsystems shall be named after the structure. The function
+   name should start with the name of the structure followed by a verb.
+   E.g.
+
+	struct strbuf;
+
+	void strbuf_add(struct strbuf *buf, ...);
+
+	void strbuf_reset(struct strbuf *buf);
+
+    is preferred over:
+
+	struct strbuf;
+
+	void add_string(struct strbuf *buf, ...);
+
+	void reset_strbuf(struct strbuf *buf);
+
+ - There are several common idiomatic names for functions performing
+   specific tasks on structures:
+
+    - `<struct>_init()` initializes a structure without allocating the
+      structure itself.
+
+    - `<struct>_release()` releases a structure's contents without
+      freeing the structure.
+
+    - `<struct>_free()` releases a structure's contents and frees the
+      structure.
 
 For Perl programs:
 
